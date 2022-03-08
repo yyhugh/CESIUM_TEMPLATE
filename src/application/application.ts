@@ -17,7 +17,7 @@ import App from "../views/App.vue";
 
 // UI框架
 import ElementPlus from "element-plus";
-import "@/styles/element/index.scss";
+import "@/styles/theme/element.scss";
 
 /**
  * 应用程序
