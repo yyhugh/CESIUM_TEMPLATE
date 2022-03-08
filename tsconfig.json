@@ -16,6 +16,7 @@
     "moduleResolution": "node",                   // 模块解析策略。node默认以index为入口文件
     "allowSyntheticDefaultImports": true,         // 允许合成默认导入(`import * as _`回归`import _`)
     "resolveJsonModule": true,                    // 解析JSON文件
+    "allowJs": true,                              // 允许编译JS文件
 
     /* 其他选项 */
     "experimentalDecorators": true,               // 启用装饰器
