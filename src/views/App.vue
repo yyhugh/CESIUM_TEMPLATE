@@ -5,7 +5,9 @@
       <router-link to="/about">About</router-link> |
       <router-link to="/cesium">Cesium</router-link>
     </nav>
-    <router-view />
+    <section>
+      <router-view />
+    </section>
   </div>
 </template>
 
@@ -22,17 +24,22 @@
 
 .v-admin {
   height: 100%;
-  display: flex;
-  flex-direction: column;
   & > nav {
-    padding: 30px;
+    height: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     & > a {
+      margin: 0 10px;
       font-weight: bold;
       color: #2c3e50;
       &.router-link-exact-active {
         color: #42b983;
       }
     }
+  }
+  & > section {
+    height: calc(100% - 60px);
   }
 }
 </style>
