@@ -7,11 +7,12 @@
       <button @click="setCount('add')">+</button>
     </div>
     <HelloWorld msg="Welcome to Your Vue.js + TypeScript App" />
+    <el-button type="primary">Primary</el-button>
   </div>
 </template>
 
 <script lang="ts" setup>
-import { HelloWorld } from "@/components"; // @ is an alias to /src
+import { HelloWorld } from "@/components";
 import { defineExpose, computed } from "vue";
 import { useStore } from "vuex";
 
@@ -48,6 +49,7 @@ defineExpose({
     width: 30px;
     height: 30px;
     line-height: 30px;
+    color: $myColor;
   }
 }
 </style>

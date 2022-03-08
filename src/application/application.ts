@@ -15,6 +15,10 @@ import directives from "../common/directives";
 // 根组件
 import App from "../views/App.vue";
 
+// UI框架
+import ElementPlus from "element-plus";
+import "@/styles/element/index.scss";
+
 /**
  * 应用程序
  */
@@ -61,7 +65,7 @@ export class Application {
     const router = this.initRouter();
 
     // 使用中间件
-    app.use(store).use(router);
+    app.use(store).use(router).use(ElementPlus);
 
     // 挂载到视图
     app.mount("#app");

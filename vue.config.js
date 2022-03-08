@@ -33,8 +33,8 @@ module.exports = defineConfig({
     "style-resources-loader": {
       preProcessor: "scss",
       patterns: [
-        resolve("src/styles/variables/*.scss"),
-        resolve("src/styles/mixins/*.scss"),
+        resolve("src/styles/variables/index.scss"),
+        resolve("src/styles/mixins/index.scss"),
       ],
     },
   },
