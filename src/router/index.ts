@@ -16,6 +16,12 @@ const routes: Array<RouteRecordRaw> = [
     component: () =>
       import(/* webpackChunkName: "about" */ "@/views/AboutView.vue"),
   },
+  {
+    path: "/cesium",
+    name: "cesium",
+    component: () =>
+      import(/* webpackChunkName: "cesium" */ "@/views/CesiumView.vue"),
+  },
 ];
 
 export default routes;
