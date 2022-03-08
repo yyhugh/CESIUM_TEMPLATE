@@ -1,3 +1,5 @@
+const webpack = require("webpack");
+const CopyWebpackPlugin = require("copy-webpack-plugin");
 const { defineConfig } = require("@vue/cli-service");
 const { resolve } = require("./build/utils");
 const { devServer, alias, build: { bundleAnalyzer } } = require("./build/config");
@@ -12,6 +14,23 @@ module.exports = defineConfig({
       const BundleAnalyzerPlugin = require("webpack-bundle-analyzer").BundleAnalyzerPlugin;
       config.plugins.push(new BundleAnalyzerPlugin());
     }
+
+    // Cesium
+    config.plugins.push(
+      new CopyWebpackPlugin({
+        patterns: [
+          { from: "node_modules/cesium/Build/Cesium/Workers", to: "cesium/Workers" },
+          { from: "node_modules/cesium/Build/Cesium/ThirdParty", to: "cesium/ThirdParty" },
+          { from: "node_modules/cesium/Build/Cesium/Assets", to: "cesium/Assets" },
+          { from: "node_modules/cesium/Build/Cesium/Widgets", to: "cesium/Widgets" },
+        ],
+      }),
+      new webpack.DefinePlugin({
+        CESIUM_BASE_URL: JSON.stringify(""),
+      }),
+    );
+    config.module.unknownContextCritical = false;
+    config.module.unknownContextRegExp = /\/cesium\/cesium\/Source\/Core\/buildModuleUrl\.js/;
   },
   // 细粒度配置
   chainWebpack: config => {
