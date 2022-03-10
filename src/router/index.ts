@@ -4,6 +4,10 @@ import HomeView from "@/views/HomeView.vue";
 const routes: Array<RouteRecordRaw> = [
   {
     path: "/",
+    redirect: "/cesium",
+  },
+  {
+    path: "/home",
     name: "home",
     component: HomeView,
   },

@@ -1,7 +1,7 @@
 <template>
   <div class="v-admin">
     <nav>
-      <router-link to="/">Home</router-link> |
+      <router-link to="/home">Home</router-link> |
       <router-link to="/about">About</router-link> |
       <router-link to="/cesium">Cesium</router-link>
     </nav>
