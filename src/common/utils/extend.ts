@@ -1,11 +1,19 @@
+export default {
+  throttle,
+  debounce,
+  uuid,
+  deepCopy,
+  stringUrlPath,
+};
+
 /**
  * 函数节流
  * @param fn 待执行函数
  * @param wait 单位(毫秒)
  */
-export function throttle(fn: any, wait: number) { // eslint-disable-line
+function throttle(fn: (...args: Array<any>) => any, wait: number) {
   let timer: unknown = null;
-  return function (...args: Array<unknown>) {
+  return function (...args: Array<any>) {
     if (!timer) {
       timer = setTimeout(() => {
         timer = null;
@@ -20,9 +28,9 @@ export function throttle(fn: any, wait: number) { // eslint-disable-line
  * @param fn 待执行函数
  * @param wait 单位(毫秒)
  */
-export function debounce(fn: any, wait: number) { // eslint-disable-line
+function debounce(fn: (...args: Array<any>) => any, wait: number) {
   let timer: unknown = null;
-  return function (...args: Array<unknown>) {
+  return function (...args: Array<any>) {
     if (timer) {
       clearTimeout(timer as number);
       timer = setTimeout(() => {
@@ -39,7 +47,7 @@ export function debounce(fn: any, wait: number) { // eslint-disable-line
 /**
  * 生成uuid
  */
-export function uuid(): string {
+function uuid(): string {
   return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, (c) => {
     const r = (Math.random() * 16) | 0,
       v = c === "x" ? r : (r & 0x3) | 0x8;
@@ -51,11 +59,11 @@ export function uuid(): string {
  * 深拷贝
  * @param target 拷贝目标
  */
-export function deepCopy<T>(target: unknown): T {
+function deepCopy<T>(target: T): T {
   // 此数组解决了循环引用和相同引用的问题，它存放已经递归到的目标对象
-  const copyedObjs: Array<any> = []; // eslint-disable-line
+  const copyedObjs: Array<any> = [];
 
-  function _deepCopy(target: any) { // eslint-disable-line
+  function _deepCopy(target: any) {
     if (typeof target !== "object" || !target) {
       return target;
     }
@@ -64,7 +72,7 @@ export function deepCopy<T>(target: unknown): T {
         return copyedObjs[i].copyTarget;
       }
     }
-    let obj: { [propName: string]: any } = {}; // eslint-disable-line
+    let obj: { [propName: string]: any } = {};
     if (Array.isArray(target)) {
       obj = []; // 处理target是数组的情况
     }
@@ -88,7 +96,7 @@ export function deepCopy<T>(target: unknown): T {
  * ---
  * "http://test.com/users/{userId}" => "https://test.com/users/1"
  */
-export function stringUrlPath(
+function stringUrlPath(
   url: string,
   params: { [propName: string]: string }
 ): string {
