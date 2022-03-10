@@ -6,14 +6,14 @@
 
 <script lang="ts" setup>
 import "/node_modules/cesium/Build/Cesium/Widgets/widgets.css";
-import * as Cesium from "cesium";
 import { ref, onMounted, onBeforeUnmount } from "vue";
+import * as Cesium from "cesium";
 import { Extend } from "@/common/utils";
 
 const containerUUID = ref(Extend.uuid());
 const viewerIns = ref<Cesium.Viewer>();
 
-onMounted(() => {
+function init() {
   // 设置自己的accessToken
   Cesium.Ion.defaultAccessToken =
     "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiJhMzA0NDY3OS1iMDFiLTRmOWEtYjE3Ni05ZTY3MTEyODg0M2IiLCJpZCI6ODQyNzYsImlhdCI6MTY0NjIwNDAwNX0.wo3gAte3g3qzJTb9PSuF391rlKnM6sWJlzK1Azw8CN4";
@@ -30,10 +30,18 @@ onMounted(() => {
     fullscreenButton: false, // 视窗全屏按钮控件
   });
   viewerIns.value = viewer;
+}
+function destroy() {
+  viewerIns.value?.destroy();
+  viewerIns.value = undefined;
+}
+
+onMounted(() => {
+  init();
 });
 
 onBeforeUnmount(() => {
-  viewerIns.value?.destroy();
+  destroy();
 });
 </script>
 

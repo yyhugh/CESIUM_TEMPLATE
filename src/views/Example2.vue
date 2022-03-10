@@ -16,8 +16,8 @@
 
 <script lang="ts" setup>
 import "/node_modules/cesium/Build/Cesium/Widgets/widgets.css";
-import * as Cesium from "cesium";
 import { ref, onMounted, onBeforeUnmount } from "vue";
+import * as Cesium from "cesium";
 import { Extend } from "@/common/utils";
 
 const containerUUID = ref(Extend.uuid());
@@ -107,6 +107,7 @@ function init() {
 
 function destroy() {
   viewerIns.value?.destroy();
+  viewerIns.value = undefined;
   vrDestroy.value = true;
 }
 
