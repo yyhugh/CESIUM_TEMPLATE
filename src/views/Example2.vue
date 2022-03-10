@@ -1,11 +1,15 @@
 <template>
   <div class="v-cesium">
-    <div id="cesiumContainer"></div>
+    <div class="container" :id="containerUUID"></div>
     <div class="control-group">
-      <el-button type="primary" @click="reset">重置</el-button>
-      <el-button type="primary" @click="() => createModel(glbUrl)">
-        加载glb飞机
-      </el-button>
+      <template v-if="!vrDestroy">
+        <el-button type="primary" @click="reset">重置视窗</el-button>
+        <el-button type="primary" @click="() => createModel(glbUrl)">
+          加载glb飞机
+        </el-button>
+        <el-button type="danger" @click="destroy">销毁</el-button>
+      </template>
+      <el-button type="success" @click="init" v-else>重新创建</el-button>
     </div>
   </div>
 </template>
@@ -13,19 +17,23 @@
 <script lang="ts" setup>
 import "/node_modules/cesium/Build/Cesium/Widgets/widgets.css";
 import * as Cesium from "cesium";
-import { onMounted, ref } from "vue";
+import { ref, onMounted, onBeforeUnmount } from "vue";
+import { Extend } from "@/common/utils";
 
+const containerUUID = ref(Extend.uuid());
 const reset = ref();
 const createModel = ref();
 const glbUrl = ref("/static/Apps/SampleData/models/CesiumAir/Cesium_Air.glb");
+const viewerIns = ref<Cesium.Viewer>();
+const vrDestroy = ref(true);
 
-onMounted(() => {
+function init() {
   // 设置自己的accessToken
   Cesium.Ion.defaultAccessToken =
     "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiJhMzA0NDY3OS1iMDFiLTRmOWEtYjE3Ni05ZTY3MTEyODg0M2IiLCJpZCI6ODQyNzYsImlhdCI6MTY0NjIwNDAwNX0.wo3gAte3g3qzJTb9PSuF391rlKnM6sWJlzK1Azw8CN4";
 
   // 实例化并隐藏附带的操作控件
-  const viewer = new Cesium.Viewer("cesiumContainer", {
+  const viewer = new Cesium.Viewer(containerUUID.value, {
     geocoder: false, // 地理位置搜索控件
     homeButton: false, // 平滑过渡到默认视角控件
     sceneModePicker: false, // 切换2D、3D地图模式控件
@@ -35,10 +43,11 @@ onMounted(() => {
     timeline: false, // 时间轴控件
     fullscreenButton: false, // 视窗全屏按钮控件
   });
+  viewerIns.value = viewer;
 
   // 加载3D tileset
   const tileset = new Cesium.Cesium3DTileset({
-    url: "/static/Apps/SampleData/Cesium3DTiles/Tilesets/Tileset/tileset.json",
+    url: "static/Apps/SampleData/Cesium3DTiles/Tilesets/Tileset/tileset.json",
   });
 
   // ? 官方声明文件中类型缺失，自己补充类型
@@ -92,6 +101,21 @@ onMounted(() => {
     });
     viewer.trackedEntity = entity;
   };
+
+  vrDestroy.value = false;
+}
+
+function destroy() {
+  viewerIns.value?.destroy();
+  vrDestroy.value = true;
+}
+
+onMounted(() => {
+  init();
+});
+
+onBeforeUnmount(() => {
+  destroy();
 });
 </script>
 
@@ -99,7 +123,7 @@ onMounted(() => {
 .v-cesium {
   position: relative;
   height: 100%;
-  #cesiumContainer {
+  .container {
     height: 100%;
     :deep(.cesium-viewer) {
       // 展示数据来源控件

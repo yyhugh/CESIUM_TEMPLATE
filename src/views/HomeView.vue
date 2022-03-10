@@ -13,7 +13,7 @@
 
 <script lang="ts" setup>
 import { HelloWorld } from "@/components";
-import { defineExpose, computed } from "vue";
+import { computed } from "vue";
 import { useStore } from "vuex";
 
 const store = useStore();
@@ -28,11 +28,6 @@ function setCount(type: "add" | "minus") {
     store.dispatch("counter/setCount", "minus");
   }
 }
-
-defineExpose({
-  count,
-  setCount,
-});
 </script>
 
 <style lang="scss" scoped>

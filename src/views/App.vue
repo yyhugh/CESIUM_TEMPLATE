@@ -1,9 +1,8 @@
 <template>
   <div class="v-admin">
     <nav>
-      <router-link to="/home">Home</router-link> |
-      <router-link to="/about">About</router-link> |
-      <router-link to="/cesium">Cesium</router-link>
+      <router-link to="/example1">Cesium1</router-link> |
+      <router-link to="/example2">Cesium2</router-link>
     </nav>
     <section>
       <router-view />
@@ -24,6 +23,7 @@
 
 .v-admin {
   height: 100%;
+  background-color: #000;
   & > nav {
     height: 60px;
     display: flex;

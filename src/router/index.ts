@@ -1,30 +1,19 @@
 import { RouteRecordRaw } from "vue-router";
-import HomeView from "@/views/HomeView.vue";
 
 const routes: Array<RouteRecordRaw> = [
   {
     path: "/",
-    redirect: "/cesium",
+    redirect: "/example1",
   },
   {
-    path: "/home",
-    name: "home",
-    component: HomeView,
+    path: "/example1",
+    name: "example1",
+    component: () => import("@/views/Example1.vue"),
   },
   {
-    path: "/about",
-    name: "about",
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () =>
-      import(/* webpackChunkName: "about" */ "@/views/AboutView.vue"),
-  },
-  {
-    path: "/cesium",
-    name: "cesium",
-    component: () =>
-      import(/* webpackChunkName: "cesium" */ "@/views/CesiumView.vue"),
+    path: "/example2",
+    name: "example2",
+    component: () => import("@/views/Example2.vue"),
   },
 ];
 
