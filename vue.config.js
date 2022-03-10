@@ -26,7 +26,7 @@ module.exports = defineConfig({
         ],
       }),
       new webpack.DefinePlugin({
-        CESIUM_BASE_URL: JSON.stringify(""),
+        CESIUM_BASE_URL: JSON.stringify("/cesium"),
       }),
     );
     config.module.unknownContextCritical = false;
