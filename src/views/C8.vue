@@ -2,9 +2,9 @@
   <div class="v-cesium">
     <div class="container" :id="containerUUID"></div>
     <div class="control-group">
-      <!-- <el-button type="primary" @click="() => addPolygon('C8_first')" v-if="isShow">新增</el-button> -->
-      <!-- <el-button type="primary" @click="() => removePolygonById('C8_first')" v-else>删除</el-button> -->
-      <!-- <el-button type="primary" @click="removeAll">移除所有数据</el-button> -->
+      <el-button type="primary" @click="() => addPolygon('C8_first')" v-if="isShow">新增</el-button>
+      <el-button type="primary" @click="() => removePolygonById('C8_first')" v-else>删除</el-button>
+      <el-button type="primary" @click="removeAll">移除所有数据</el-button>
     </div>
   </div>
 </template>
@@ -65,9 +65,7 @@ function init() {
     // 设置多边形
     polygon: {
       // 放入多边形位置信息
-      hierarchy: Cesium.Cartesian3.fromDegreesArray([
-        116.39, 39.91, 116.39, 39.915, 116.395, 39.91,
-      ]) as any,
+      hierarchy: Cesium.Cartesian3.fromDegreesArray([116.39, 39.91, 116.39, 39.915, 116.395, 39.91]) as any,
       material: Cesium.Color.RED,
       // 垂直拉升
       extrudedHeight: 200,
@@ -81,9 +79,7 @@ function init() {
       // 设置多边形
       polygon: {
         // 放入多边形位置信息
-        hierarchy: Cesium.Cartesian3.fromDegreesArray([
-          116.38, 39.92, 116.38, 39.915, 116.4, 39.92,
-        ]) as any,
+        hierarchy: Cesium.Cartesian3.fromDegreesArray([116.38, 39.92, 116.38, 39.915, 116.4, 39.92]) as any,
         material: Cesium.Color.SKYBLUE,
         // 垂直拉升
         extrudedHeight: 200,

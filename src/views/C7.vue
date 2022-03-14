@@ -63,9 +63,7 @@ function init() {
   viewer.entities.add({
     polyline: {
       show: true,
-      positions: Cesium.Cartesian3.fromDegreesArray([
-        116.39, 39.9066, 116.4, 39.9066,
-      ]),
+      positions: Cesium.Cartesian3.fromDegreesArray([116.39, 39.9066, 116.4, 39.9066]),
       width: 5,
       material: new Cesium.Color(0, 0, 1, 1),
     },
@@ -100,10 +98,7 @@ function init() {
   // ---glb小飞机---
   const position = Cesium.Cartesian3.fromDegrees(116.37, 39.88, 3000);
   const hpr = new Cesium.HeadingPitchRoll(-90, 0, 0);
-  const quaternion = Cesium.Transforms.headingPitchRollQuaternion(
-    position,
-    hpr
-  ) as any;
+  const quaternion = Cesium.Transforms.headingPitchRollQuaternion(position, hpr) as any;
   const planeEntity = viewer.entities.add({
     position,
     orientation: quaternion,

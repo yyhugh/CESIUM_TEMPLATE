@@ -8,10 +8,7 @@ export default <ActionTree<State, unknown>>{
 /**
  * 加减器
  */
-export function setCount(
-  store: ActionContext<State, void>,
-  type: "add" | "minus"
-): void {
+export function setCount(store: ActionContext<State, void>, type: "add" | "minus"): void {
   let count = store.state.count;
   if (type === "add") {
     count++;

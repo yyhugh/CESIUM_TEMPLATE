@@ -1,14 +1,12 @@
 import { ApplicationContext } from "@/application";
 import { MainHttpClient } from "@/common/http";
 
+type IMethod = "get" | "post" | "put" | "delete" | "patch" | "upload";
+
 /**
  * 请求发给主服务
  */
-export function reqMainService(
-  url: string,
-  options: IHttp.Request = {},
-  method: "get" | "post" | "put" | "delete" | "patch" | "upload" = "post"
-): Promise<IHttp.Response> {
+export function reqMainService(url: string, options: IHttp.Request = {}, method: IMethod = "post"): Promise<IHttp.Response> {
   // 获取上下文
   const context = ApplicationContext.current;
 

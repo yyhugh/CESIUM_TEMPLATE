@@ -4,9 +4,7 @@
     <div class="control-group">
       <template v-if="!vrDestroy">
         <el-button type="primary" @click="reset">重置视窗</el-button>
-        <el-button type="primary" @click="() => createModel(glbUrl)">
-          加载glb飞机
-        </el-button>
+        <el-button type="primary" @click="() => createModel(glbUrl)"> 加载glb飞机 </el-button>
         <el-button type="danger" @click="destroy">销毁</el-button>
       </template>
       <el-button type="success" @click="init" v-else>重新创建</el-button>
@@ -30,8 +28,7 @@ const vrDestroy = ref(true);
 
 function init() {
   // 设置自己的accessToken
-  Cesium.Ion.defaultAccessToken =
-    ApplicationContext.current.cesiumIonAccessToken;
+  Cesium.Ion.defaultAccessToken = ApplicationContext.current.cesiumIonAccessToken;
 
   // 实例化并隐藏附带的操作控件
   const viewer = new Cesium.Viewer(containerUUID.value, {
@@ -62,11 +59,7 @@ function init() {
   const readyPromise = tileset.readyPromise.then((tileset) => {
     // 添加tileset到viewer
     viewer.scene.primitives.add(tileset);
-    const defaultHeadingPitchRange = new Cesium.HeadingPitchRange(
-      0.0,
-      -0.5,
-      tileset.boundingSphere.radius * 2.0
-    );
+    const defaultHeadingPitchRange = new Cesium.HeadingPitchRange(0.0, -0.5, tileset.boundingSphere.radius * 2.0);
     // 聚焦tileset
     viewer.zoomTo(tileset, defaultHeadingPitchRange);
     // 重置视窗位置
@@ -86,10 +79,7 @@ function init() {
     const pitch = 0;
     const roll = 0;
     const hpr = new Cesium.HeadingPitchRoll(heading, pitch, roll);
-    const quaternion = Cesium.Transforms.headingPitchRollQuaternion(
-      position,
-      hpr
-    ) as any;
+    const quaternion = Cesium.Transforms.headingPitchRollQuaternion(position, hpr) as any;
     const entity = viewer.entities.add({
       name: url,
       position,

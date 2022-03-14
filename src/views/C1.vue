@@ -16,8 +16,7 @@ const viewerIns = ref<Cesium.Viewer>();
 
 function init() {
   // 设置自己的accessToken
-  Cesium.Ion.defaultAccessToken =
-    ApplicationContext.current.cesiumIonAccessToken;
+  Cesium.Ion.defaultAccessToken = ApplicationContext.current.cesiumIonAccessToken;
 
   // 实例化并隐藏附带的操作控件
   const viewer = new Cesium.Viewer(containerUUID.value, {

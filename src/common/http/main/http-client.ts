@@ -36,10 +36,7 @@ export default class HttpClient extends HttpBase {
   /**
    * 解析响应内容
    */
-  protected resolveResponse = (
-    axiosResponse: AxiosResponse,
-    axiosRequestConfig: AxiosRequestConfig // eslint-disable-line
-  ): IHttpResponse<HttpResponseCode> => {
+  protected resolveResponse = (axiosResponse: AxiosResponse, axiosRequestConfig: AxiosRequestConfig): IHttpResponse<HttpResponseCode> => {
     // 响应内容解析
     const { status: code, data: content, headers, request } = axiosResponse;
 

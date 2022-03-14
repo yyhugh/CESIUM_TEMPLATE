@@ -96,10 +96,7 @@ function deepCopy<T>(target: T): T {
  * ---
  * "http://test.com/users/{userId}" => "https://test.com/users/1"
  */
-function stringUrlPath(
-  url: string,
-  params: { [propName: string]: string }
-): string {
+function stringUrlPath(url: string, params: { [propName: string]: string }): string {
   for (const k in params) {
     if (params[k] !== undefined) {
       const regExp = new RegExp(`({${k}})`, "g");

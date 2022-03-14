@@ -70,7 +70,7 @@ export interface IHttpRequest {
      * 请求拦截器
      */
     request?: () => void;
-    
+
     /**
      * 响应拦截器
      */

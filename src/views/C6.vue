@@ -103,17 +103,13 @@ function init() {
     // 用于传输海量异构3D地理空间数据集
     new Cesium.Cesium3DTileset({
       url: Cesium.IonResource.fromAssetId(MAP_ASSET_ID.NewYorkCity3DBuildings),
-    })
+    }),
   );
 
   // 调整相机位置
   viewer.camera.setView({
     // 设置经纬度位置和相机高度
-    destination: new Cesium.Cartesian3(
-      1330874.9726811291,
-      -4658344.382042736,
-      4137231.8554648715
-    ),
+    destination: new Cesium.Cartesian3(1330874.9726811291, -4658344.382042736, 4137231.8554648715),
     // 设置相机方向
     orientation: {
       heading: 0.9721266342429953,

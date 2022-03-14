@@ -10,10 +10,7 @@ export default abstract class HttpClientBase {
   /**
    * 解析响应内容(可视为响应拦截器)
    */
-  protected abstract resolveResponse: (
-    axiosResponse: AxiosResponse,
-    axiosRequestConfig: AxiosRequestConfig
-  ) => IHttpResponse<unknown>;
+  protected abstract resolveResponse: (axiosResponse: AxiosResponse, axiosRequestConfig: AxiosRequestConfig) => IHttpResponse<unknown>;
 
   /**
    * 请求配置
@@ -79,10 +76,7 @@ export default abstract class HttpClientBase {
   /**
    * 根据请求方式生成axios专用请求配置
    */
-  private getAxiosRequestConfig(
-    method: "get" | "post" | "put" | "delete" | "patch",
-    request: IHttpRequest
-  ): AxiosRequestConfig {
+  private getAxiosRequestConfig(method: "get" | "post" | "put" | "delete" | "patch", request: IHttpRequest): AxiosRequestConfig {
     // ? 配置文档 AxiosRequestConfig http://axios-js.com/zh-cn/docs/index.html#%E8%AF%B7%E6%B1%82%E9%85%8D%E7%BD%AE
     const config: AxiosRequestConfig = {
       url: request.url,
@@ -109,10 +103,7 @@ export default abstract class HttpClientBase {
 
       // ? /user/{id}
       if (request.urlPath) {
-        config.url = Extend.stringUrlPath(
-          request.url as string,
-          request.urlPath
-        );
+        config.url = Extend.stringUrlPath(request.url as string, request.urlPath);
       }
     } else {
       switch (request.serializeType) {
@@ -177,16 +168,11 @@ export default abstract class HttpClientBase {
   /**
    * 发送请求
    */
-  private async send(
-    axiosRequestConfig: AxiosRequestConfig
-  ): Promise<IHttpResponse<unknown>> {
+  private async send(axiosRequestConfig: AxiosRequestConfig): Promise<IHttpResponse<unknown>> {
     return new Promise((resolve, reject) => {
       Axios(axiosRequestConfig)
         .then((axiosResponse: AxiosResponse) => {
-          const content = this.resolveResponse(
-            axiosResponse,
-            axiosRequestConfig
-          );
+          const content = this.resolveResponse(axiosResponse, axiosRequestConfig);
           resolve(content);
         })
         .catch((error) => {

@@ -15,6 +15,8 @@
 import { HelloWorld } from "@/components";
 import { computed } from "vue";
 import { useStore } from "vuex";
+import { accountService } from "@/services";
+console.log("accountService", accountService);
 
 const store = useStore();
 

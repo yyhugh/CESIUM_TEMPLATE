@@ -16,8 +16,7 @@ const viewerIns = ref<Cesium.Viewer>();
 
 function init() {
   // 设置自己的accessToken
-  Cesium.Ion.defaultAccessToken =
-    ApplicationContext.current.cesiumIonAccessToken;
+  Cesium.Ion.defaultAccessToken = ApplicationContext.current.cesiumIonAccessToken;
 
   // 实例化并隐藏附带的操作控件
   const viewer = new Cesium.Viewer(containerUUID.value, {
@@ -31,11 +30,7 @@ function init() {
     fullscreenButton: false, // 视窗全屏按钮控件
   });
   viewerIns.value = viewer;
-  viewer.dataSources.add(
-    Cesium.GeoJsonDataSource.load(
-      "static/Apps/SampleData/ne_10m_us_states.topojson"
-    )
-  );
+  viewer.dataSources.add(Cesium.GeoJsonDataSource.load("static/Apps/SampleData/ne_10m_us_states.topojson"));
 }
 
 function destroy() {

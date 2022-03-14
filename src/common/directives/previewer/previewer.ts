@@ -24,9 +24,7 @@ function createViewer(el: El, binding: DirectiveBinding): void {
         const keys = Object.keys(modifiers);
         if (keys.length > 0) {
           const className = keys[0];
-          const btnEl = el.getElementsByClassName(
-            className
-          )[0] as HTMLButtonElement;
+          const btnEl = el.getElementsByClassName(className)[0] as HTMLButtonElement;
           btnEl.onclick = () => el.viewerInstance?.show();
         }
         break;
