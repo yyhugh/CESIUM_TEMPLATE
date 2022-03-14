@@ -1,0 +1,6 @@
+/build
+/dist
+/public
+package.json
+tsconfig.json
+README.md
