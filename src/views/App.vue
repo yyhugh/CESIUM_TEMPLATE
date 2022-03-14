@@ -1,14 +1,31 @@
 <template>
   <div class="v-admin">
     <nav>
-      <router-link to="/example1">Cesium1</router-link> |
-      <router-link to="/example2">Cesium2</router-link>
+      <template v-for="item in list" :key="item.name">
+        <router-link :to="item.path">{{ item.name }}</router-link> |
+      </template>
     </nav>
     <section>
       <router-view />
     </section>
   </div>
 </template>
+
+<script lang="ts" setup>
+import { ref } from "vue";
+import { RouteRecordRaw } from "vue-router";
+import { ApplicationContext } from "@/application";
+const context = ApplicationContext.current;
+const router = ref(context.router);
+const { routes } = router.value.options;
+const list = ref<Array<RouteRecordRaw>>([]);
+
+routes.forEach((route) => {
+  if (route.path !== "/") {
+    list.value.push(route);
+  }
+});
+</script>
 
 <style lang="scss">
 @import "@/styles/reset.scss";

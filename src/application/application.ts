@@ -62,7 +62,7 @@ export class Application {
 
     // 相关依赖初始化
     const store = this.initStore();
-    const router = this.initRouter();
+    const router = this.initRouter(context);
 
     // 使用中间件
     app.use(store).use(router).use(ElementPlus);
@@ -83,11 +83,12 @@ export class Application {
   /**
    * 初始化路由
    */
-  private initRouter() {
+  private initRouter(context: ApplicationContext) {
     const router = createRouter({
       history: createWebHistory(process.env.BASE_URL),
       routes,
     });
+    context.router = router;
 
     // 路由守卫
     router.beforeEach((to, from, next) => {
