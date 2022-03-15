@@ -1,12 +1,6 @@
 <template>
   <div class="v-cesium">
     <div class="container" :id="containerUUID"></div>
-    <div class="control-group">
-      <el-button type="primary" @click="() => addPolygon('C8_first')" v-if="!isShow">新增</el-button>
-      <el-button type="primary" @click="() => removePolygonById('C8_first')" v-if="isShow">删除</el-button>
-      <el-button type="primary" @click="() => editStyle('C8_first')" v-if="isShow">修改样式</el-button>
-      <el-button type="primary" @click="removeAll">移除所有数据</el-button>
-    </div>
   </div>
 </template>
 
@@ -16,16 +10,11 @@ import { ApplicationContext } from "@/application";
 import { ref, onMounted, onBeforeUnmount } from "vue";
 import * as Cesium from "cesium";
 import { Extend } from "@/common/utils";
+import { ElMessage } from "element-plus";
 
 const context = ApplicationContext.current;
 const containerUUID = ref(Extend.uuid());
 const viewerIns = ref<Cesium.Viewer>();
-
-const addPolygon = ref();
-const removePolygonById = ref();
-const editStyle = ref();
-const removeAll = ref();
-const isShow = ref(false);
 
 function init() {
   // 设置自己的accessToken
@@ -52,9 +41,7 @@ function init() {
 
   // 摆放好相机
   viewer.camera.setView({
-    // 目的地
     destination: Cesium.Cartesian3.fromDegrees(116.39, 39.91, 6000),
-    // 方向
     orientation: {
       heading: Cesium.Math.toRadians(0),
       pitch: Cesium.Math.toRadians(-90),
@@ -62,48 +49,32 @@ function init() {
     },
   });
 
-  // 多边形
+  // 画个多边形
   viewer.entities.add({
-    // 设置多边形
+    id: "C9_polygon",
     polygon: {
-      // 放入多边形位置信息
-      hierarchy: Cesium.Cartesian3.fromDegreesArray([116.39, 39.91, 116.39, 39.915, 116.395, 39.91]) as any,
+      hierarchy: Cesium.Cartesian3.fromDegreesArray([116.38, 39.92, 116.38, 39.915, 116.4, 39.92]) as any,
       material: Cesium.Color.RED,
-      // 垂直拉升
       extrudedHeight: 200,
     },
+    // 弹窗信息
+    description: `
+    <div>Hello World</div>
+    `,
   });
 
-  addPolygon.value = (id: string) => {
-    // 多边形
-    viewer.entities.add({
-      id,
-      // 设置多边形
-      polygon: {
-        // 放入多边形位置信息
-        hierarchy: Cesium.Cartesian3.fromDegreesArray([116.38, 39.92, 116.38, 39.915, 116.4, 39.92]) as any,
-        material: Cesium.Color.SKYBLUE,
-        // 垂直拉升
-        extrudedHeight: 200,
-      },
-    });
-    isShow.value = true;
-  };
-
-  removePolygonById.value = (id: string) => {
-    viewer.entities.removeById(id);
-    isShow.value = false;
-  };
-
-  editStyle.value = (id: string) => {
-    const entitiy = viewer.entities.getById(id) as any;
-    entitiy.polygon.material = Cesium.Color.YELLOW;
-  };
-
-  removeAll.value = () => {
-    viewer.entities.removeAll();
-    isShow.value = false;
-  };
+  const handler = new Cesium.ScreenSpaceEventHandler(viewer.scene.canvas);
+  handler.setInputAction((event) => {
+    const pick = viewer.scene.pick(event.position);
+    // 检查是否存在空间数据
+    if (Cesium.defined(pick) && pick.id.id === "C9_polygon") {
+      console.log("pick", pick);
+      ElMessage({
+        type: "success",
+        message: "Hello World",
+      });
+    }
+  }, Cesium.ScreenSpaceEventType.LEFT_CLICK);
 }
 
 function destroy() {
@@ -131,14 +102,6 @@ onBeforeUnmount(() => {
       .cesium-viewer-bottom {
         display: none !important;
       }
-    }
-  }
-  .control-group {
-    position: absolute;
-    top: 0;
-    right: 0;
-    button {
-      margin: 20px 20px 0 0;
     }
   }
 }

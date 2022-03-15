@@ -46,6 +46,16 @@ const routes: Array<RouteRecordRaw> = [
     name: "C8",
     component: () => import("@/views/C8.vue"),
   },
+  {
+    path: "/C9",
+    name: "C9",
+    component: () => import("@/views/C9.vue"),
+  },
+  {
+    path: "/C10",
+    name: "C10",
+    component: () => import("@/views/C10.vue"),
+  },
 ];
 
 routes.unshift({
