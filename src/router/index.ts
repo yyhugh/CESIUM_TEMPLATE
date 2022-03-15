@@ -1,61 +1,18 @@
 import { RouteRecordRaw } from "vue-router";
 
+const cList = ["C1", "C2", "C3", "C4", "C5", "C6", "C7", "C8", "C9", "C10", "C11"];
+
 const routes: Array<RouteRecordRaw> = [
   {
     path: "/home",
     name: "home",
     component: () => import("@/views/HomeView.vue"),
   },
-  {
-    path: "/C1",
-    name: "C1",
-    component: () => import("@/views/C1.vue"),
-  },
-  {
-    path: "/C2",
-    name: "C2",
-    component: () => import("@/views/C2.vue"),
-  },
-  {
-    path: "/C3",
-    name: "C3",
-    component: () => import("@/views/C3.vue"),
-  },
-  {
-    path: "/C4",
-    name: "C4",
-    component: () => import("@/views/C4.vue"),
-  },
-  {
-    path: "/C5",
-    name: "C5",
-    component: () => import("@/views/C5.vue"),
-  },
-  {
-    path: "/C6",
-    name: "C6",
-    component: () => import("@/views/C6.vue"),
-  },
-  {
-    path: "/C7",
-    name: "C7",
-    component: () => import("@/views/C7.vue"),
-  },
-  {
-    path: "/C8",
-    name: "C8",
-    component: () => import("@/views/C8.vue"),
-  },
-  {
-    path: "/C9",
-    name: "C9",
-    component: () => import("@/views/C9.vue"),
-  },
-  {
-    path: "/C10",
-    name: "C10",
-    component: () => import("@/views/C10.vue"),
-  },
+  ...cList.map((c) => ({
+    path: `/${c}`,
+    name: c,
+    component: () => import(`@/views/${c}.vue`),
+  })),
 ];
 
 routes.unshift({

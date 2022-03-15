@@ -16,9 +16,9 @@ import { Extend } from "@/common/utils";
 import { MAP_ASSET_ID } from "@/common/enums";
 
 const context = ApplicationContext.current;
-const containerUUID = ref(Extend.uuid());
+const containerUUID = Extend.uuid();
 const getCamera = ref();
-const viewerIns = ref<Cesium.Viewer>();
+let viewerIns: Cesium.Viewer | undefined;
 
 function init() {
   // 设置自己的accessToken
@@ -32,11 +32,11 @@ function init() {
   // });
 
   // ① Viewer Options.imageryProvider
-  // const viewer = new Cesium.Viewer(containerUUID.value, {
+  // const viewer = new Cesium.Viewer(containerUUID, {
   //   baseLayerPicker: false, // 切换三维数字地球底图控件，加载新地图时需隐藏
   //   imageryProvider: esri, // 加载新地图
   // });
-  // viewerIns.value = viewer;
+  // viewerIns = viewer;
 
   // ② addImageryProvider
   // viewer.imageryLayers.addImageryProvider(
@@ -49,7 +49,7 @@ function init() {
   const esri = new Cesium.ArcGisMapServerImageryProvider({
     url: context.arcGISMapServer,
   });
-  const viewer = new Cesium.Viewer(containerUUID.value, {
+  const viewer = new Cesium.Viewer(containerUUID, {
     geocoder: false, // 地理位置搜索控件
     homeButton: false, // 平滑过渡到默认视角控件
     sceneModePicker: false, // 切换2D、3D地图模式控件
@@ -66,7 +66,7 @@ function init() {
       requestWaterMask: true, // 增加水面特效
     }),
   });
-  viewerIns.value = viewer;
+  viewerIns = viewer;
 
   // ---无高度建筑物图层---
 
@@ -146,8 +146,8 @@ function init() {
 }
 
 function destroy() {
-  viewerIns.value?.destroy();
-  viewerIns.value = undefined;
+  viewerIns?.destroy();
+  viewerIns = undefined;
 }
 
 onMounted(() => {

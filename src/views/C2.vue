@@ -19,11 +19,11 @@ import { ref, onMounted, onBeforeUnmount } from "vue";
 import * as Cesium from "cesium";
 import { Extend } from "@/common/utils";
 
-const containerUUID = ref(Extend.uuid());
+const containerUUID = Extend.uuid();
 const reset = ref();
 const createModel = ref();
 const glbUrl = ref("/static/Apps/SampleData/models/CesiumAir/Cesium_Air.glb");
-const viewerIns = ref<Cesium.Viewer>();
+let viewerIns: Cesium.Viewer | undefined;
 const vrDestroy = ref(true);
 
 function init() {
@@ -31,7 +31,7 @@ function init() {
   Cesium.Ion.defaultAccessToken = ApplicationContext.current.cesiumIonAccessToken;
 
   // 实例化并隐藏附带的操作控件
-  const viewer = new Cesium.Viewer(containerUUID.value, {
+  const viewer = new Cesium.Viewer(containerUUID, {
     geocoder: false, // 地理位置搜索控件
     homeButton: false, // 平滑过渡到默认视角控件
     sceneModePicker: false, // 切换2D、3D地图模式控件
@@ -41,7 +41,7 @@ function init() {
     timeline: false, // 时间轴控件
     fullscreenButton: false, // 视窗全屏按钮控件
   });
-  viewerIns.value = viewer;
+  viewerIns = viewer;
 
   // 加载3D tileset
   const tileset = new Cesium.Cesium3DTileset({
@@ -97,8 +97,8 @@ function init() {
 }
 
 function destroy() {
-  viewerIns.value?.destroy();
-  viewerIns.value = undefined;
+  viewerIns?.destroy();
+  viewerIns = undefined;
   vrDestroy.value = true;
 }
 

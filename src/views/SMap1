@@ -1,0 +1,73 @@
+<template>
+  <div class="v-cesium">
+    <div class="container" :id="containerUUID"></div>
+  </div>
+</template>
+
+<script lang="ts" setup>
+import { ref, onMounted, onBeforeUnmount } from "vue";
+import { Extend } from "@/common/utils";
+
+const containerUUID = Extend.uuid();
+const viewerIns = ref();
+
+function init() {
+  // 实例化并隐藏附带的操作控件
+  const viewer = new Cesium.Viewer(containerUUID);
+  viewerIns = viewer;
+
+  const provider1 = new Cesium.SuperMapImageryProvider({
+    url: "https://{s}/iserver/services/map-ugcv5-GDSZ2020Q4GDLK/rest/maps/GD_SZ_2020_Q4_GDLK",
+    show: true,
+    highResolution: true,
+    subdomains: ["map.szsti.org:8090"],
+  });
+  viewer.imageryLayers.addImageryProvider(provider1);
+
+  const provider2 = new Cesium.SuperMapImageryProvider({
+    url: "https://{s}/iserver/services/map-ugcv5-GDSZ2021Q4SZLK4490/rest/maps/GD_SZ_2021_Q4_SZLK%284490%29",
+    show: true,
+    highResolution: true,
+    subdomains: ["map.szsti.org:8090"],
+  });
+  viewer.imageryLayers.addImageryProvider(provider2);
+
+  viewer.scene.camera.flyTo({
+    destination: Cesium.Cartesian3.fromDegrees(114.21, 22.1, 50000.0),
+    orientation: {
+      heading: Cesium.Math.toRadians(0.0),
+      pitch: Cesium.Math.toRadians(-40.0),
+      roll: 0.0,
+    },
+    duration: 3,
+  });
+}
+function destroy() {
+  viewerIns?.destroy();
+  viewerIns = undefined;
+}
+
+onMounted(() => {
+  init();
+});
+
+onBeforeUnmount(() => {
+  destroy();
+});
+</script>
+
+<style lang="scss" scoped>
+.v-cesium {
+  position: relative;
+  height: 100%;
+  .container {
+    height: 100%;
+    :deep(.cesium-viewer) {
+      // 展示数据来源控件
+      .cesium-viewer-bottom {
+        display: none !important;
+      }
+    }
+  }
+}
+</style>

@@ -7,14 +7,14 @@
 <script lang="ts" setup>
 import "/node_modules/cesium/Build/Cesium/Widgets/widgets.css";
 import { ApplicationContext } from "@/application";
-import { ref, onMounted, onBeforeUnmount } from "vue";
+import { onMounted, onBeforeUnmount } from "vue";
 import * as Cesium from "cesium";
 import { Extend } from "@/common/utils";
 import { MAP_ASSET_ID } from "@/common/enums";
 
 const context = ApplicationContext.current;
-const containerUUID = ref(Extend.uuid());
-const viewerIns = ref<Cesium.Viewer>();
+const containerUUID = Extend.uuid();
+let viewerIns: Cesium.Viewer | undefined;
 
 function init() {
   // 设置自己的accessToken
@@ -28,11 +28,11 @@ function init() {
   // });
 
   // ① Viewer Options.imageryProvider
-  // const viewer = new Cesium.Viewer(containerUUID.value, {
+  // const viewer = new Cesium.Viewer(containerUUID, {
   //   baseLayerPicker: false, // 切换三维数字地球底图控件，加载新地图时需隐藏
   //   imageryProvider: esri, // 加载新地图
   // });
-  // viewerIns.value = viewer;
+  // viewerIns = viewer;
 
   // ② addImageryProvider
   // viewer.imageryLayers.addImageryProvider(
@@ -45,7 +45,7 @@ function init() {
   const esri = new Cesium.ArcGisMapServerImageryProvider({
     url: context.arcGISMapServer,
   });
-  const viewer = new Cesium.Viewer(containerUUID.value, {
+  const viewer = new Cesium.Viewer(containerUUID, {
     baseLayerPicker: false, // 切换三维数字地球底图控件，加载新地图时需隐藏
     imageryProvider: esri, // 加载新地图
     // 将地形数据转换成Cesium能够访问的格式
@@ -55,12 +55,12 @@ function init() {
       requestWaterMask: true, // 增加水面特效
     }),
   });
-  viewerIns.value = viewer;
+  viewerIns = viewer;
 }
 
 function destroy() {
-  viewerIns.value?.destroy();
-  viewerIns.value = undefined;
+  viewerIns?.destroy();
+  viewerIns = undefined;
 }
 
 onMounted(() => {

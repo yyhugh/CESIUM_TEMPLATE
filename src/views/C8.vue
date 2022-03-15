@@ -18,8 +18,8 @@ import * as Cesium from "cesium";
 import { Extend } from "@/common/utils";
 
 const context = ApplicationContext.current;
-const containerUUID = ref(Extend.uuid());
-const viewerIns = ref<Cesium.Viewer>();
+const containerUUID = Extend.uuid();
+let viewerIns: Cesium.Viewer | undefined;
 
 const addPolygon = ref();
 const removePolygonById = ref();
@@ -37,7 +37,7 @@ function init() {
   });
 
   // 实例化并隐藏附带的操作控件
-  const viewer = new Cesium.Viewer(containerUUID.value, {
+  const viewer = new Cesium.Viewer(containerUUID, {
     geocoder: false, // 地理位置搜索控件
     homeButton: false, // 平滑过渡到默认视角控件
     sceneModePicker: false, // 切换2D、3D地图模式控件
@@ -48,7 +48,7 @@ function init() {
     fullscreenButton: false, // 视窗全屏按钮控件
     imageryProvider: esri, // 加载新地图
   });
-  viewerIns.value = viewer;
+  viewerIns = viewer;
 
   // 摆放好相机
   viewer.camera.setView({
@@ -107,8 +107,8 @@ function init() {
 }
 
 function destroy() {
-  viewerIns.value?.destroy();
-  viewerIns.value = undefined;
+  viewerIns?.destroy();
+  viewerIns = undefined;
 }
 
 onMounted(() => {
