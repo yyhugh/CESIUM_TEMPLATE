@@ -8,10 +8,9 @@
 </template>
 
 <script lang="ts" setup>
-import "/node_modules/cesium/Build/Cesium/Widgets/widgets.css";
-import { ApplicationContext } from "@/application";
 import { ref, onMounted, onBeforeUnmount } from "vue";
 import * as Cesium from "cesium";
+import { ApplicationContext } from "@/application";
 import { Extend } from "@/common/utils";
 import { MAP_ASSET_ID } from "@/common/enums";
 

@@ -5,10 +5,9 @@
 </template>
 
 <script lang="ts" setup>
-import "/node_modules/cesium/Build/Cesium/Widgets/widgets.css";
-import { ApplicationContext } from "@/application";
 import { onMounted, onBeforeUnmount } from "vue";
 import * as Cesium from "cesium";
+import { ApplicationContext } from "@/application";
 import { Extend } from "@/common/utils";
 
 const context = ApplicationContext.current;

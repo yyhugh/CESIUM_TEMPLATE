@@ -5,19 +5,15 @@
 </template>
 
 <script lang="ts" setup>
-import "/node_modules/cesium/Build/Cesium/Widgets/widgets.css";
-import { ApplicationContext } from "@/application";
 import { onMounted, onBeforeUnmount } from "vue";
 import * as Cesium from "cesium";
+import { ApplicationContext } from "@/application";
 import { Extend } from "@/common/utils";
 
 const containerUUID = Extend.uuid();
 let viewerIns: Cesium.Viewer | undefined;
 
 function init() {
-  // 设置自己的accessToken
-  Cesium.Ion.defaultAccessToken = ApplicationContext.current.cesiumIonAccessToken;
-
   // 实例化并隐藏附带的操作控件
   const viewer = new Cesium.Viewer(containerUUID, {
     geocoder: false, // 地理位置搜索控件

@@ -19,6 +19,10 @@ import App from "../views/App.vue";
 import ElementPlus from "element-plus";
 import "@/styles/theme/element.scss";
 
+// Cesium
+import "/node_modules/cesium/Build/Cesium/Widgets/widgets.css";
+import * as Cesium from "cesium";
+
 /**
  * 应用程序
  */
@@ -61,6 +65,7 @@ export class Application {
     keys.forEach((key) => app.directive(key, directives[key]));
 
     // 相关依赖初始化
+    this.initVendor(context);
     const store = this.initStore();
     const router = this.initRouter(context);
 
@@ -96,6 +101,14 @@ export class Application {
     });
 
     return router;
+  }
+
+  /**
+   * 初始化第三方依赖
+   */
+  private initVendor(context: ApplicationContext) {
+    // Cesium设置自己的accessToken
+    Cesium.Ion.defaultAccessToken = context.cesiumIonAccessToken;
   }
 
   /**
