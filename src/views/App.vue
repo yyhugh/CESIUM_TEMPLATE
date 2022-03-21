@@ -8,14 +8,21 @@
     <section>
       <router-view />
     </section>
+    <AppLoading :show="appLoading"></AppLoading>
   </div>
 </template>
 
 <script lang="ts" setup>
-import { ref } from "vue";
+import { ref, computed } from "vue";
+import { useStore } from "vuex";
 import { RouteRecordRaw } from "vue-router";
 import { ApplicationContext } from "@/application";
+import { AppLoading } from "@/components";
+
 const context = ApplicationContext.current;
+const store = useStore();
+const appLoading = computed(() => store.getters["loading/getAppLoading"]);
+
 const router = ref(context.router);
 const { routes } = router.value.options;
 const list = ref<Array<RouteRecordRaw>>([]);
@@ -25,6 +32,14 @@ routes.forEach((route) => {
     list.value.push(route);
   }
 });
+
+function hide() {
+  store.dispatch("loading/setAppLoading", false);
+}
+
+setTimeout(() => {
+  hide();
+}, 3500);
 </script>
 
 <style lang="scss">
