@@ -1,14 +1,15 @@
-import { RouteRecordRaw } from "vue-router";
+import { RouteRecordRaw, RouterView } from "vue-router";
 import { rootRedirect, redirect } from "./redirect";
 
-const cList = ["C1", "C2", "C3", "C4", "C5", "C6", "C7", "C8", "C9", "C10", "C11", "C12", "C13"];
+const part1 = ["C1", "C2", "C3", "C4", "C5", "C6", "C7", "C8", "C9", "C10", "C11", "C12", "C13"];
+const part2 = ["P1"];
 
 /**
  * 页面路由配置
  * ---
- * 特性
- * meta.auth   权限码。可选项，需要权限校验就配置。
- * meta.isNav  用于导航列表渲染。可选项，未配置则视为隐藏路由。
+ * 定制特性
+ * @param meta.auth `string` 权限码。可选项，需要权限校验就配置。
+ * @param meta.isNav `boolean` 用于导航列表渲染。可选项，未配置则视为隐藏路由。
  */
 const routes: Array<RouteRecordRaw> = [
   {
@@ -24,10 +25,26 @@ const routes: Array<RouteRecordRaw> = [
     component: () => import("@/views/App.vue"),
     redirect,
     children: [
-      ...cList.map((c) => ({
-        path: c,
-        name: c,
-        component: () => import(`@/views/part1/${c}.vue`),
+      ...part1.map((v) => ({
+        path: v,
+        name: v,
+        component: () => import(`@/views/part1/${v}.vue`),
+      })),
+    ],
+  },
+  {
+    name: "part2",
+    path: "/part2",
+    meta: {
+      isNav: true,
+    },
+    component: () => import("@/views/App.vue"),
+    redirect,
+    children: [
+      ...part2.map((v) => ({
+        path: v,
+        name: v,
+        component: () => import(`@/views/part2/${v}.vue`),
       })),
     ],
   },
