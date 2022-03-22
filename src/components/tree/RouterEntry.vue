@@ -34,14 +34,16 @@ for (let i = 0, l = routes.length; i < l; i++) {
     }
     const children: Array<IOptions> = [];
     route.children?.forEach((item) => {
+      const flag = item.path.replace(/\//g, "");
       children.push({
-        label: item.name,
-        value: item.name,
+        label: flag,
+        value: flag,
       });
     });
+    const flag = route.path.replace(/\//g, "");
     options.push({
-      label: route.name,
-      value: route.name,
+      label: flag,
+      value: flag,
       children,
     });
   } catch (error) {

@@ -2,7 +2,7 @@ import { RouteRecordRaw, RouterView } from "vue-router";
 import { rootRedirect, redirect } from "./redirect";
 
 const part1 = ["C1", "C2", "C3", "C4", "C5", "C6", "C7", "C8", "C9", "C10", "C11", "C12", "C13"];
-const part2 = ["P1"];
+const part2 = ["C1"];
 
 /**
  * 页面路由配置
@@ -27,7 +27,7 @@ const routes: Array<RouteRecordRaw> = [
     children: [
       ...part1.map((v) => ({
         path: v,
-        name: v,
+        name: `part1-${v}`,
         component: () => import(`@/views/part1/${v}.vue`),
       })),
     ],
@@ -43,7 +43,7 @@ const routes: Array<RouteRecordRaw> = [
     children: [
       ...part2.map((v) => ({
         path: v,
-        name: v,
+        name: `part2-${v}`,
         component: () => import(`@/views/part2/${v}.vue`),
       })),
     ],
