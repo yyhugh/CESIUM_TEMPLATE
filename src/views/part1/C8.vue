@@ -14,10 +14,10 @@
 import { ref, onMounted, onBeforeUnmount } from "vue";
 import * as Cesium from "cesium";
 import { ApplicationContext } from "@/application";
-import { Extend } from "@/common/utils";
+import { ExtendUtil } from "@/common/utils";
 
 const context = ApplicationContext.current;
-const containerUUID = Extend.uuid();
+const containerUUID = ExtendUtil.uuid();
 let viewerIns: Cesium.Viewer | undefined;
 
 const addPolygon = ref();

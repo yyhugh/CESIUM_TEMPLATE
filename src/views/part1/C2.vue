@@ -16,9 +16,9 @@
 import { ref, onMounted, onBeforeUnmount } from "vue";
 import * as Cesium from "cesium";
 import { ApplicationContext } from "@/application";
-import { Extend } from "@/common/utils";
+import { ExtendUtil } from "@/common/utils";
 
-const containerUUID = Extend.uuid();
+const containerUUID = ExtendUtil.uuid();
 const reset = ref();
 const createModel = ref();
 const glbUrl = ref("/static/Apps/SampleData/models/CesiumAir/Cesium_Air.glb");

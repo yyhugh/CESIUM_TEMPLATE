@@ -6,9 +6,9 @@
 
 <script lang="ts" setup>
 import { ref, onMounted, onBeforeUnmount } from "vue";
-import { Extend } from "@/common/utils";
+import { ExtendUtil } from "@/common/utils";
 
-const containerUUID = Extend.uuid();
+const containerUUID = ExtendUtil.uuid();
 const viewerIns = ref();
 
 function init() {
