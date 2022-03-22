@@ -1,14 +1,8 @@
 <template>
-  <div class="v-admin">
-    <nav>
-      <template v-for="item in list" :key="item.name">
-        <router-link :to="item.path">{{ item.name }}</router-link> |
-      </template>
-    </nav>
-    <section>
-      <router-view />
-    </section>
+  <div class="app">
+    <router-view />
     <AppLoading :show="appLoading"></AppLoading>
+    <RouterEntry class="entry"></RouterEntry>
   </div>
 </template>
 
@@ -17,7 +11,7 @@ import { ref, computed } from "vue";
 import { useStore } from "vuex";
 import { RouteRecordRaw } from "vue-router";
 import { ApplicationContext } from "@/application";
-import { AppLoading } from "@/components";
+import { AppLoading, RouterEntry } from "@/components";
 
 const context = ApplicationContext.current;
 const store = useStore();
@@ -39,39 +33,17 @@ function hide() {
 
 setTimeout(() => {
   hide();
-}, 3500);
+}, 1000);
 </script>
 
-<style lang="scss">
-@import "@/styles/reset.scss";
-
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
-
-.v-admin {
+<style lang="scss" scoped>
+.app {
   height: 100%;
   background-color: #000;
-  & > nav {
-    height: 60px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    & > a {
-      margin: 0 10px;
-      font-weight: bold;
-      color: #2c3e50;
-      &.router-link-exact-active {
-        color: #42b983;
-      }
-    }
-  }
-  & > section {
-    height: calc(100% - 60px);
+  .entry {
+    position: fixed;
+    top: 15px;
+    left: 15px;
   }
 }
 </style>

@@ -1,19 +1,19 @@
 import { ApplicationContext } from "./context";
 import { createApp } from "vue";
 
+// 全局样式文件
+import "@/styles/reset.scss";
+
 // vuex
 import { createStore } from "vuex";
 import store from "../store";
 
 // router
-import { createRouter, createWebHistory } from "vue-router";
+import { createRouter, createWebHistory, RouterView } from "vue-router";
 import routes from "../router";
 
 // 全局指令
 import directives from "../common/directives";
-
-// 根组件
-import App from "../views/App.vue";
 
 // UI框架
 import ElementPlus from "element-plus";
@@ -58,7 +58,7 @@ export class Application {
     this.cacheSaveToContext();
 
     // 创建app
-    const app = createApp(App);
+    const app = createApp(RouterView);
 
     // 批量注册全局指令
     const keys = Object.keys(directives);
