@@ -41,7 +41,7 @@ function init() {
 
   // 加载3D tileset
   const tileset = new Cesium.Cesium3DTileset({
-    url: "static/Apps/SampleData/Cesium3DTiles/Tilesets/Tileset/tileset.json",
+    url: "/static/Apps/SampleData/Cesium3DTiles/Tilesets/Tileset/tileset.json",
   });
 
   // ? 官方声明文件中类型缺失，自己补充类型

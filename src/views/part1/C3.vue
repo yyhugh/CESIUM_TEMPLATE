@@ -26,7 +26,7 @@ function init() {
     fullscreenButton: false, // 视窗全屏按钮控件
   });
   viewerIns = viewer;
-  viewer.dataSources.add(Cesium.GeoJsonDataSource.load("static/Apps/SampleData/ne_10m_us_states.topojson"));
+  viewer.dataSources.add(Cesium.GeoJsonDataSource.load("/static/Apps/SampleData/ne_10m_us_states.topojson"));
 }
 
 function destroy() {

@@ -38,7 +38,7 @@ function init() {
   });
 
   let entity: Cesium.Entity, positionProperty: Cesium.PositionProperty;
-  const dataSourcePromise = Cesium.CzmlDataSource.load("static/Apps/SampleData/ClampToGround.czml");
+  const dataSourcePromise = Cesium.CzmlDataSource.load("/static/Apps/SampleData/ClampToGround.czml");
 
   viewer.dataSources.add(dataSourcePromise).then((dataSource) => {
     entity = dataSource.entities.getById("CesiumMilkTruck") as Cesium.Entity;
