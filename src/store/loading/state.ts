@@ -1,3 +1,3 @@
 export default class State {
-  public appLoading = true;
+  public appLoading = false;
 }

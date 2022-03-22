@@ -6,10 +6,11 @@
 
 <script lang="ts" setup>
 import { onMounted, onBeforeUnmount } from "vue";
+import { useStore } from "vuex";
 import * as Cesium from "cesium";
-import { ApplicationContext } from "@/application";
 import { ExtendUtil } from "@/common/utils";
 
+const store = useStore();
 const containerUUID = ExtendUtil.uuid();
 let viewerIns: Cesium.Viewer | undefined;
 

@@ -50,7 +50,9 @@ $fontColor: #dedede;
 .fade-leave-active {
   transition: opacity 0.5s;
 }
-.fade-enter-from,
+.fade-enter-from {
+  opacity: 1;
+}
 .fade-leave-to {
   opacity: 0;
 }

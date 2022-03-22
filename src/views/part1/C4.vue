@@ -7,7 +7,6 @@
 <script lang="ts" setup>
 import { onMounted, onBeforeUnmount } from "vue";
 import * as Cesium from "cesium";
-import { ApplicationContext } from "@/application";
 import { ExtendUtil } from "@/common/utils";
 
 const containerUUID = ExtendUtil.uuid();

@@ -6,9 +6,12 @@
 
 <script lang="ts" setup>
 import { onMounted, onBeforeUnmount } from "vue";
+import { useStore } from "vuex";
 import * as Cesium from "cesium";
-import { ApplicationContext } from "@/application";
 import { ExtendUtil } from "@/common/utils";
+
+const store = useStore();
+store.dispatch("loading/setAppLoading", true);
 
 const containerUUID = ExtendUtil.uuid();
 let viewerIns: Cesium.Viewer | undefined;
@@ -35,6 +38,9 @@ function destroy() {
 
 onMounted(() => {
   init();
+  setTimeout(() => {
+    store.dispatch("loading/setAppLoading", false);
+  }, 2000);
 });
 
 onBeforeUnmount(() => {

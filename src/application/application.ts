@@ -6,7 +6,7 @@ import "@/styles/reset.scss";
 
 // vuex
 import { createStore } from "vuex";
-import store from "../store";
+import modules from "../store";
 
 // router
 import { createRouter, createWebHistory, RouterView } from "vue-router";
@@ -81,7 +81,7 @@ export class Application {
    */
   private initStore() {
     return createStore({
-      modules: store,
+      modules,
     });
   }
 
