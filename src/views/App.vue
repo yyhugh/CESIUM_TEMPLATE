@@ -1,5 +1,5 @@
 <template>
-  <div class="app">
+  <div class="v-app">
     <router-view />
     <AppLoading :show="appLoading"></AppLoading>
     <RouterEntry class="entry"></RouterEntry>
@@ -37,7 +37,7 @@ setTimeout(() => {
 </script>
 
 <style lang="scss" scoped>
-.app {
+.v-app {
   height: 100%;
   background-color: #000;
   .entry {

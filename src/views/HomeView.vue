@@ -1,5 +1,5 @@
 <template>
-  <div class="home">
+  <div class="v-home">
     <img v-previewer alt="Vue logo" src="~assets/logo.png" />
     <div class="count">
       <button @click="setCount('minus')">-</button>
@@ -33,20 +33,22 @@ function setCount(type: "add" | "minus") {
 </script>
 
 <style lang="scss" scoped>
-.count {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  button {
-    width: 30px;
-    height: 30px;
-    font-size: 20px;
-  }
-  span {
-    width: 30px;
-    height: 30px;
-    line-height: 30px;
-    color: $myColor;
+.v-home {
+  .count {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    button {
+      width: 30px;
+      height: 30px;
+      font-size: 20px;
+    }
+    span {
+      width: 30px;
+      height: 30px;
+      line-height: 30px;
+      color: $myColor;
+    }
   }
 }
 </style>
