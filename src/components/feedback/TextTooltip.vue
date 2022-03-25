@@ -29,7 +29,7 @@ const config = computed(() => ({
 const vm = getCurrentInstance();
 function setPosition(origin: { x: number; y: number }) {
   if (!origin) {
-    console.error("[setPosition]: 'origin'初始化位置不能为空！");
+    console.warn("[setPosition]: 'origin'初始化位置不能为空！");
     return;
   }
   const offset = AnchorUtil.getOffset(config.value.anchor as number, config.value.width, config.value.height);
