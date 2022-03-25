@@ -1,8 +1,8 @@
-import { RouteRecordRaw, RouterView } from "vue-router";
+import { RouteRecordRaw } from "vue-router";
 import { rootRedirect, redirect } from "./redirect";
 
 const part1 = ["C1", "C2", "C3", "C4", "C5", "C6", "C7", "C8", "C9", "C10", "C11", "C12", "C13"];
-const part2 = ["C1"];
+const part2 = ["C1", "C2", "C3", "C4", "C5", "C6", "C7", "C8", "C9", "C10", "C11"];
 
 /**
  * 页面路由配置
@@ -17,22 +17,6 @@ const routes: Array<RouteRecordRaw> = [
     redirect: rootRedirect,
   },
   {
-    name: "part1",
-    path: "/part1",
-    meta: {
-      isNav: true,
-    },
-    component: () => import("@/views/App.vue"),
-    redirect,
-    children: [
-      ...part1.map((v) => ({
-        path: v,
-        name: `part1-${v}`,
-        component: () => import(`@/views/part1/${v}.vue`),
-      })),
-    ],
-  },
-  {
     name: "part2",
     path: "/part2",
     meta: {
@@ -41,11 +25,31 @@ const routes: Array<RouteRecordRaw> = [
     component: () => import("@/views/App.vue"),
     redirect,
     children: [
-      ...part2.map((v) => ({
-        path: v,
-        name: `part2-${v}`,
-        component: () => import(`@/views/part2/${v}.vue`),
-      })),
+      ...part2
+        .map((v) => ({
+          path: v,
+          name: `part2-${v}`,
+          component: () => import(`@/views/part2/${v}.vue`),
+        }))
+        .reverse(),
+    ],
+  },
+  {
+    name: "part1",
+    path: "/part1",
+    meta: {
+      isNav: true,
+    },
+    component: () => import("@/views/App.vue"),
+    redirect,
+    children: [
+      ...part1
+        .map((v) => ({
+          path: v,
+          name: `part1-${v}`,
+          component: () => import(`@/views/part1/${v}.vue`),
+        }))
+        .reverse(),
     ],
   },
   {
