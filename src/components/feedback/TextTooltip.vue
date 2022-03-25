@@ -28,6 +28,10 @@ const config = computed(() => ({
 }));
 const vm = getCurrentInstance();
 function setPosition(origin: { x: number; y: number }) {
+  if (!origin) {
+    console.error("[setPosition]: 'origin'初始化位置不能为空！");
+    return;
+  }
   const offset = AnchorUtil.getOffset(config.value.anchor as number, config.value.width, config.value.height);
   (tooltipRef.value as HTMLElement).style.top = origin.y + offset.y + config.value.offsetY + "px";
   (tooltipRef.value as HTMLElement).style.left = origin.x + offset.x + config.value.offsetX + "px";
