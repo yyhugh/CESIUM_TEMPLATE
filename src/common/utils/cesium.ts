@@ -11,8 +11,10 @@ export default {
   drawHeatmap,
   drawSpreadRing,
   on,
+  onClick,
   collectTimer,
   recoverTimer,
+  grid,
 };
 
 /**
@@ -379,4 +381,60 @@ function on(type: string, viewer: Cesium.Viewer, callback: (event: IScreenSpaceE
   eventHandler.setInputAction((event: IScreenSpaceEvent) => {
     callback(event);
   }, eventType);
+}
+
+/**
+ * 监听点击事件
+ */
+function onClick(viewer: Cesium.Viewer, callback: (event: IScreenSpaceEvent, pick: any) => void) {
+  const eventHandler = new Cesium.ScreenSpaceEventHandler(viewer.scene.canvas);
+  eventHandler.setInputAction((event: IScreenSpaceEvent) => {
+    const pick = viewer.scene.pick(event.position);
+    // 检查是否存在空间数据
+    if (Cesium.defined(pick)) {
+      callback(event, pick);
+    }
+  }, Cesium.ScreenSpaceEventType.LEFT_CLICK);
+}
+
+interface IGridOptions {
+  /**
+   * 起点
+   */
+  lnglat: Array<number>;
+  /**
+   * 总数
+   */
+  total: number;
+  /**
+   * 列数
+   */
+  cols: number;
+  /**
+   * 间隔距离(单位像素)
+   * [→,↓]
+   */
+  gap: Array<number>;
+}
+
+/**
+ * 平面网格分布
+ */
+function grid(viewer: Cesium.Viewer, options: IGridOptions) {
+  const { lnglat, total, cols, gap } = options;
+  const c3 = Cesium.Cartesian3.fromDegrees(lnglat[0], lnglat[1]);
+  const c2 = Cesium.SceneTransforms.wgs84ToWindowCoordinates(viewer.scene, c3);
+  const rows = Math.ceil(total / cols); // 计算行数
+  const list: Array<Cesium.Cartesian3> = [];
+  let row = 0;
+  while (row < rows) {
+    const y = c2.y + gap[1] * row;
+    let x = 0;
+    for (let i = 0; i < cols; i++) {
+      x = c2.x + gap[0] * i;
+      list.push(viewer.scene.camera.pickEllipsoid(new Cesium.Cartesian2(x, y)) as Cesium.Cartesian3);
+    }
+    row++;
+  }
+  return list;
 }
