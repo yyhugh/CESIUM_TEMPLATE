@@ -97,7 +97,11 @@ export class Application {
 
     // 路由守卫
     router.beforeEach((to, from, next) => {
-      next();
+      if (!to.name) {
+        next({ name: "404" });
+      } else {
+        next();
+      }
     });
 
     return router;
