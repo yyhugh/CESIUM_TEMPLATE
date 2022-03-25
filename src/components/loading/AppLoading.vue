@@ -1,6 +1,6 @@
 <template>
-  <transition name="fade" v-show="props.show">
-    <div class="loading">
+  <transition name="fade">
+    <div class="loading" v-show="props.show">
       <div class="main">
         <img src="~assets/loading.svg" alt="" />
         <p>{{ props.text || "正在启动..." }}</p>
