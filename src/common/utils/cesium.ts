@@ -54,7 +54,8 @@ function globeReadyPromise(viewer: Cesium.Viewer, timeout = 6): Promise<void> {
     const timer = setTimeout(() => {
       cancel = true;
       eventHelper.removeAll();
-      reject(`\n[globeReadyPromise]: 等待时间大于${timeout}秒，瓦片加载已超时！`);
+      resolve();
+      console.warn(`[globeReadyPromise]: 等待时间大于${timeout}秒，瓦片加载已超时！`);
     }, timeout * 1000);
     eventHelper.add(viewer.scene.globe.tileLoadProgressEvent, (event) => {
       // 注意：有概率出现瓦片加载不出来的情况
@@ -374,7 +375,9 @@ function on(type: string, viewer: Cesium.Viewer, callback: (event: IScreenSpaceE
   } else if (type === events[1]) {
     eventType = Cesium.ScreenSpaceEventType.MOUSE_MOVE;
   } else {
-    console.error(`[CesiumUtil on]: 不存在该事件类型，请检查或补充。\n当前事件类型'${type}'，已支持的事件类型：${events.join("、")}。`);
+    console.error(
+      `[CesiumUtil on]: 不存在该事件类型，请检查或补充。\n当前事件类型'${type}'，已支持的事件类型：${events.join("、")}。`,
+    );
     return;
   }
   const eventHandler = new Cesium.ScreenSpaceEventHandler(viewer.scene.canvas);
