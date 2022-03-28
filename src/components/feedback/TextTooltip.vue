@@ -5,7 +5,7 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, computed, getCurrentInstance, defineEmits } from "vue";
+import { ref, computed, getCurrentInstance } from "vue";
 import { AnchorUtil } from "@/common/utils";
 
 const tooltipRef = ref();
