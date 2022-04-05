@@ -19,12 +19,12 @@ store.dispatch("loading/setAppLoading", true);
 /**
  * Beginner
  * @example
- * 加载新地图
+ * 加载地形
  */
 async function init() {
   const viewer = CesiumUtil.createViewer(containerUUID, {
-    imageryProvider: new Cesium.ArcGisMapServerImageryProvider({
-      url: "https://services.arcgisonline.com/ArcGIS/rest/services/NatGeo_World_Map/MapServer/",
+    terrainProvider: new Cesium.ArcGISTiledElevationTerrainProvider({
+      url: "https://elevation3d.arcgis.com/arcgis/rest/services/WorldElevation3D/Terrain3D/ImageServer",
     }),
   });
   viewerIns = viewer;
