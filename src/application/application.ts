@@ -18,6 +18,7 @@ import directives from "../common/directives";
 // UI框架
 import ElementPlus from "element-plus";
 import "@/styles/theme/element.scss";
+import EPlusZhCn from "element-plus/es/locale/lang/zh-cn";
 
 // Cesium
 import "/node_modules/cesium/Build/Cesium/Widgets/widgets.css";
@@ -70,7 +71,9 @@ export class Application {
     const router = this.initRouter(context);
 
     // 使用中间件
-    app.use(store).use(router).use(ElementPlus);
+    app.use(store).use(router).use(ElementPlus, {
+      locale: EPlusZhCn,
+    });
 
     // 挂载到视图
     app.mount("#app");
